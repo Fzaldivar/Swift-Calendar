@@ -55,14 +55,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hhb-i0-KPj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="978" y="168"/>
+            <point key="canvasLocation" x="1249" y="168"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MqG-F7-Tsk">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="P48-3c-1Iq" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fxh-Hh-AOP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fxh-Hh-AOP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -73,7 +73,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m9P-Mh-3s5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="113" y="168"/>
+            <point key="canvasLocation" x="-126" y="168"/>
         </scene>
     </scenes>
 </document>

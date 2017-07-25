@@ -21,12 +21,14 @@ class EventsTableViewController: UITableViewController {
     // MARK: properties
     var events : GTLRCalendar_Events!
     var service : GTLRCalendarService!
+    var addEventButton : UIBarButtonItem!
     
     // MARK:
     // MARK: initialize methods
     
     private func initialize(){
-        
+        addEventButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: nil)
+        navigationItem.rightBarButtonItem = addEventButton
         //addEvent()
     }
     

@@ -10,13 +10,17 @@ import UIKit
 import GoogleAPIClientForREST
 import GoogleSignIn
 import GTMOAuth2
+import NVActivityIndicatorView
 
 
-class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDelegate{
+class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDelegate, NVActivityIndicatorViewable{
     
+    // MARK:
+    // MARK: constants
     
     let kGoogleAPIKeychainItemName = "Google Calendar API";
     let kGoogleAPIClientID = "307980938621-11gdeu8334c6umga443iic3bgq58u2cb.apps.googleusercontent.com";
+    let loadingText : String = "Loading..."
     
     // MARK:
     // MARK: properties
@@ -31,10 +35,19 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
     
     private func initialize(){
         
+        //spinner
+        
+        let width = view.frame.size.width / 3
+        let size = CGSize(width: width, height: width)
+        startAnimating(size, message: loadingText, type: .ballScaleRipple)
+        
+        //service
+        
         service = GTLRCalendarService.init()
         service.authorizer = GTMOAuth2ViewControllerTouch.authForGoogleFromKeychain(forName: kGoogleAPIKeychainItemName, clientID: kGoogleAPIClientID, clientSecret: nil)
         
         signInButton.center = view.center
+        signInButton.isHidden = true
         view.addSubview(signInButton)
         
         // Configure Google Sign-in.
@@ -66,14 +79,17 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
     // MARK: delegate methods
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            showAlert(title: "Authentication Error", message: error.localizedDescription)
+        if error != nil {
+            self.signInButton.isHidden = false
             self.service.authorizer = nil
         } else {
             self.signInButton.isHidden = true
             self.service.authorizer = user.authentication.fetcherAuthorizer()
             fetchEvents()
         }
+        
+        //stop spinner
+        stopAnimating()
     }
     
     
@@ -95,21 +111,6 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
     // MARK:
     // MARK: private methods
     
-    // Helper for showing an alert
-    private func showAlert(title : String, message: String) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: UIAlertControllerStyle.alert
-        )
-        let ok = UIAlertAction(
-            title: "OK",
-            style: UIAlertActionStyle.default,
-            handler: nil
-        )
-        alert.addAction(ok)
-        present(alert, animated: true, completion: nil)
-    }
     
     private func fetchEvents() {
         let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
