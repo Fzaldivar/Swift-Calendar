@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8482608F1F26F1E300E41C3F /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482608E1F26F1E300E41C3F /* InitialViewController.swift */; };
+		848260911F26F4B800E41C3F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 848260901F26F4B800E41C3F /* GoogleService-Info.plist */; };
+		848260931F26F50300E41C3F /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848260921F26F50300E41C3F /* EventsTableViewController.swift */; };
 		84CE09861F26853A00F72573 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CE09851F26853A00F72573 /* AppDelegate.swift */; };
-		84CE09881F26853A00F72573 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CE09871F26853A00F72573 /* ViewController.swift */; };
 		84CE098B1F26853A00F72573 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CE09891F26853A00F72573 /* Main.storyboard */; };
 		84CE098D1F26853A00F72573 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CE098C1F26853A00F72573 /* Assets.xcassets */; };
 		84CE09901F26853A00F72573 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CE098E1F26853A00F72573 /* LaunchScreen.storyboard */; };
@@ -18,9 +20,11 @@
 /* Begin PBXFileReference section */
 		60CB4C5DBA3173B96AAE37F7 /* Pods-iOSGoogleCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSGoogleCalendar.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSGoogleCalendar/Pods-iOSGoogleCalendar.release.xcconfig"; sourceTree = "<group>"; };
 		65CF6F4BEB2CE41EC5270F4D /* Pods_iOSGoogleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSGoogleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8482608E1F26F1E300E41C3F /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		848260901F26F4B800E41C3F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		848260921F26F50300E41C3F /* EventsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		84CE09821F26853A00F72573 /* iOSGoogleCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSGoogleCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CE09851F26853A00F72573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		84CE09871F26853A00F72573 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		84CE098A1F26853A00F72573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84CE098C1F26853A00F72573 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84CE098F1F26853A00F72573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -75,6 +79,7 @@
 				84CE098C1F26853A00F72573 /* Assets.xcassets */,
 				84CE098E1F26853A00F72573 /* LaunchScreen.storyboard */,
 				84CE09911F26853A00F72573 /* Info.plist */,
+				848260901F26F4B800E41C3F /* GoogleService-Info.plist */,
 			);
 			path = iOSGoogleCalendar;
 			sourceTree = "<group>";
@@ -98,7 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				84CE09851F26853A00F72573 /* AppDelegate.swift */,
-				84CE09871F26853A00F72573 /* ViewController.swift */,
+				8482608E1F26F1E300E41C3F /* InitialViewController.swift */,
+				848260921F26F50300E41C3F /* EventsTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -177,6 +183,7 @@
 			files = (
 				84CE09901F26853A00F72573 /* LaunchScreen.storyboard in Resources */,
 				84CE098D1F26853A00F72573 /* Assets.xcassets in Resources */,
+				848260911F26F4B800E41C3F /* GoogleService-Info.plist in Resources */,
 				84CE098B1F26853A00F72573 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,8 +243,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84CE09881F26853A00F72573 /* ViewController.swift in Sources */,
 				84CE09861F26853A00F72573 /* AppDelegate.swift in Sources */,
+				8482608F1F26F1E300E41C3F /* InitialViewController.swift in Sources */,
+				848260931F26F50300E41C3F /* EventsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +413,7 @@
 				84CE09961F26853A00F72573 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

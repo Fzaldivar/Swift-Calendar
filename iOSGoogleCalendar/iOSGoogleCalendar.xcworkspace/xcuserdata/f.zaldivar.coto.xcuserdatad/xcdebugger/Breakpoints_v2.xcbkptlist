@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iOSGoogleCalendar/InitialViewController.swift"
+            timestampString = "522647194.65865"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "displayResultWithTicket(ticket:finishedWithObject:error:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iOSGoogleCalendar.InitialViewController.displayResultWithTicket (ticket : __ObjC.GTLRServiceTicket, finishedWithObject : __ObjC.GTLRCalendar_Events, error : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()"
+                  moduleName = "iOSGoogleCalendar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/f.zaldivar.coto/Desktop/Calendar/Swift-Calendar/iOSGoogleCalendar/iOSGoogleCalendar/InitialViewController.swift"
+                  timestampString = "522649274.264179"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iOSGoogleCalendar.InitialViewController.displayResultWithTicket (ticket : __ObjC.GTLRServiceTicket, finishedWithObject : __ObjC.GTLRCalendar_Events, error : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()"
+                  moduleName = "iOSGoogleCalendar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/f.zaldivar.coto/Desktop/Calendar/Swift-Calendar/iOSGoogleCalendar/iOSGoogleCalendar/InitialViewController.swift"
+                  timestampString = "522649274.266254"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "630">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
