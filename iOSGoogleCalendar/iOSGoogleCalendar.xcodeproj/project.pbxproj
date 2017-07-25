@@ -12,9 +12,12 @@
 		84CE098B1F26853A00F72573 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CE09891F26853A00F72573 /* Main.storyboard */; };
 		84CE098D1F26853A00F72573 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CE098C1F26853A00F72573 /* Assets.xcassets */; };
 		84CE09901F26853A00F72573 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84CE098E1F26853A00F72573 /* LaunchScreen.storyboard */; };
+		DA20699258A30F6AF25E667A /* Pods_iOSGoogleCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CF6F4BEB2CE41EC5270F4D /* Pods_iOSGoogleCalendar.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		60CB4C5DBA3173B96AAE37F7 /* Pods-iOSGoogleCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSGoogleCalendar.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSGoogleCalendar/Pods-iOSGoogleCalendar.release.xcconfig"; sourceTree = "<group>"; };
+		65CF6F4BEB2CE41EC5270F4D /* Pods_iOSGoogleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSGoogleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CE09821F26853A00F72573 /* iOSGoogleCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSGoogleCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CE09851F26853A00F72573 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84CE09871F26853A00F72573 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		84CE098C1F26853A00F72573 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84CE098F1F26853A00F72573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84CE09911F26853A00F72573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7C363E4DA189BD5ACB402F4 /* Pods-iOSGoogleCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSGoogleCalendar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSGoogleCalendar/Pods-iOSGoogleCalendar.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA20699258A30F6AF25E667A /* Pods_iOSGoogleCalendar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		066F6953FDE868831BAA1527 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				65CF6F4BEB2CE41EC5270F4D /* Pods_iOSGoogleCalendar.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		84CE09791F26853A00F72573 = {
 			isa = PBXGroup;
 			children = (
 				84CE09841F26853A00F72573 /* iOSGoogleCalendar */,
 				84CE09831F26853A00F72573 /* Products */,
+				954943BA7D821839C314CED5 /* Pods */,
+				066F6953FDE868831BAA1527 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,6 +103,15 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		954943BA7D821839C314CED5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E7C363E4DA189BD5ACB402F4 /* Pods-iOSGoogleCalendar.debug.xcconfig */,
+				60CB4C5DBA3173B96AAE37F7 /* Pods-iOSGoogleCalendar.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -95,9 +119,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84CE09941F26853A00F72573 /* Build configuration list for PBXNativeTarget "iOSGoogleCalendar" */;
 			buildPhases = (
+				DDB261DE78FF09AA50346228 /* [CP] Check Pods Manifest.lock */,
 				84CE097E1F26853A00F72573 /* Sources */,
 				84CE097F1F26853A00F72573 /* Frameworks */,
 				84CE09801F26853A00F72573 /* Resources */,
+				2033DA6F654624601A2E0188 /* [CP] Embed Pods Frameworks */,
+				ACD0CC488044877549938BE5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -155,6 +182,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2033DA6F654624601A2E0188 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSGoogleCalendar/Pods-iOSGoogleCalendar-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ACD0CC488044877549938BE5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSGoogleCalendar/Pods-iOSGoogleCalendar-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DDB261DE78FF09AA50346228 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		84CE097E1F26853A00F72573 /* Sources */ = {
@@ -285,6 +360,7 @@
 		};
 		84CE09951F26853A00F72573 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E7C363E4DA189BD5ACB402F4 /* Pods-iOSGoogleCalendar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = QK8DF4LTZ9;
@@ -298,6 +374,7 @@
 		};
 		84CE09961F26853A00F72573 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60CB4C5DBA3173B96AAE37F7 /* Pods-iOSGoogleCalendar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = QK8DF4LTZ9;
