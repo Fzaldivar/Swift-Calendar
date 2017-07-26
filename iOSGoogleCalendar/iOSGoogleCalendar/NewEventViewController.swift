@@ -26,6 +26,7 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var hoursPickerView: UIPickerView!
     @IBOutlet weak var textViewDescription: UITextView!
     @IBOutlet weak var textFieldSummary: UITextField!
+    var calendarButton : UIBarButtonItem!
     
     // MARK:
     // MARK: initialize methods
@@ -36,6 +37,9 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         textViewDescription.text = textViewDescriptionPlaceholder
         textViewDescription.textColor = UIColor.lightGray
+        
+        calendarButton = UIBarButtonItem(image: UIImage.init(named: "calendar"), style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = calendarButton
         
 //        let min = Date()
 //        let max = Date().addingTimeInterval(60 * 60 * 24 * 4)
