@@ -26,8 +26,10 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var hoursPickerView: UIPickerView!
     @IBOutlet weak var textViewDescription: UITextView!
     @IBOutlet weak var textFieldSummary: UITextField!
+    @IBOutlet weak var dateLabel: UILabel!
     var calendarButton : UIBarButtonItem!
-    
+    var pickerDate :DateTimePicker!
+    var selectedDate : Date!
     // MARK:
     // MARK: initialize methods
     
@@ -38,24 +40,34 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         textViewDescription.text = textViewDescriptionPlaceholder
         textViewDescription.textColor = UIColor.lightGray
         
-        calendarButton = UIBarButtonItem(image: UIImage.init(named: "calendar"), style: .plain, target: self, action: nil)
+        calendarButton = UIBarButtonItem(image: UIImage.init(named: "calendar"), style: .plain, target: self, action: #selector(showDatePicker))
         navigationItem.rightBarButtonItem = calendarButton
         
-//        let min = Date()
-//        let max = Date().addingTimeInterval(60 * 60 * 24 * 4)
-//        let picker = DateTimePicker.show(minimumDate: min, maximumDate: max)
-//        picker.highlightColor = UIColor(red: 255.0/255.0, green: 138.0/255.0, blue: 138.0/255.0, alpha: 1)
-//        picker.darkColor = UIColor.darkGray
-//        picker.doneButtonTitle = "!! DONE DONE !!"
-//        picker.todayButtonTitle = "Today"
-//        picker.is12HourFormat = true
-//        picker.dateFormat = "hh:mm aa dd/MM/YYYY"
-//        //        picker.isDatePickerOnly = true
-//        picker.completionHandler = { date in
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "hh:mm aa dd/MM/YYYY"
-//            //self.item.title = formatter.string(from: date)
-//        }
+        selectedDate = Date()
+        initializeDatePicker()
+        
+
+    }
+    
+    
+    private func initializeDatePicker(){
+        let min = Date()
+        let max = Date().addingTimeInterval(60 * 60 * 24 * 30)
+        pickerDate = DateTimePicker.show(minimumDate: min, maximumDate: max)
+        pickerDate.highlightColor = UIColor(red: 22.0/255.0, green: 127.0/255.0, blue: 251.0/255.0, alpha: 1)
+        pickerDate.darkColor = UIColor.darkGray
+        pickerDate.doneButtonTitle = "DONE"
+        pickerDate.todayButtonTitle = "Today"
+        pickerDate.is12HourFormat = true
+        pickerDate.dateFormat = "hh:mm aa dd/MM/YYYY"
+        
+        pickerDate.completionHandler = { date in
+            let formatter = DateFormatter()
+            formatter.dateFormat = "hh:mm aa dd/MM/YYYY"
+            self.selectedDate = self.pickerDate.selectedDate
+            self.dateLabel.text = formatter.string(from: date)
+        }
+        pickerDate.selectedDate = selectedDate
     }
     
     
@@ -122,4 +134,15 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         textField.resignFirstResponder()
         return true
     }
+    
+    
+    // MARK:
+    // MARK: public methods
+    
+    func showDatePicker(){
+        initializeDatePicker()
+    }
+    
+    
+    
 }

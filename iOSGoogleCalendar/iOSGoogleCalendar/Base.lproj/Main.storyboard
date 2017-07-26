@@ -185,6 +185,7 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="dateLabel" destination="zN0-SZ-grl" id="VHj-UR-yhI"/>
                         <outlet property="hoursPickerView" destination="V9l-ft-cHn" id="ihn-CR-fot"/>
                         <outlet property="textFieldSummary" destination="L2e-m0-UaY" id="9nR-JZ-Wh8"/>
                         <outlet property="textViewDescription" destination="MxS-8R-yPX" id="Vww-JJ-G6s"/>
