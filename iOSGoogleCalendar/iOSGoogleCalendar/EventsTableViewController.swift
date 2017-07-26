@@ -15,6 +15,7 @@ class EventsTableViewController: UITableViewController {
     // MARK:
     // MARK: constants
     let eventsSections : Int = 1
+    let titleEvents : String = "Events"
     
     
     // MARK:
@@ -27,9 +28,10 @@ class EventsTableViewController: UITableViewController {
     // MARK: initialize methods
     
     private func initialize(){
-        addEventButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: nil)
+        addEventButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(addEventView))
         navigationItem.rightBarButtonItem = addEventButton
-        //addEvent()
+        navigationItem.setHidesBackButton(true, animated:true);
+        title = titleEvents
     }
     
     // MARK:
@@ -49,6 +51,7 @@ class EventsTableViewController: UITableViewController {
     // MARK: delegate methods
     
     //MARK: UITableViewDataSource
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return eventsSections
     }
@@ -100,6 +103,15 @@ class EventsTableViewController: UITableViewController {
                 print("No se agregó")
             }
         })
+    }
+    
+    
+    // MARK:
+    // MARK: public methods
+    
+    func addEventView(){
+        let newEventViewController : NewEventViewController = storyboard?.instantiateViewController(withIdentifier: "NewEventViewController") as! NewEventViewController
+        navigationController?.pushViewController(newEventViewController, animated: true)
     }
     
     
