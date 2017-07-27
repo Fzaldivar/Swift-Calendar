@@ -8,6 +8,7 @@
 
 import UIKit
 import DateTimePicker
+import GoogleAPIClientForREST
 
 class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate, UITextFieldDelegate {
 
@@ -27,9 +28,13 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var textViewDescription: UITextView!
     @IBOutlet weak var textFieldSummary: UITextField!
     @IBOutlet weak var dateLabel: UILabel!
+    
     var calendarButton : UIBarButtonItem!
     var pickerDate :DateTimePicker!
     var selectedDate : Date!
+    var service : GTLRCalendarService!
+    
+    
     // MARK:
     // MARK: initialize methods
     
@@ -43,7 +48,8 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         calendarButton = UIBarButtonItem(image: UIImage.init(named: "calendar"), style: .plain, target: self, action: #selector(showDatePicker))
         navigationItem.rightBarButtonItem = calendarButton
         
-        selectedDate = Date()
+        selectedDate = nil
+        dateLabel.text = "Choose a date"
         initializeDatePicker()
         
 
@@ -67,7 +73,7 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             self.selectedDate = self.pickerDate.selectedDate
             self.dateLabel.text = formatter.string(from: date)
         }
-        pickerDate.selectedDate = selectedDate
+        
     }
     
     
@@ -79,7 +85,7 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         initialize()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -130,11 +136,64 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     //MARK: textfield delegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // User finished typing (hit return): hide the keyboard.
         textField.resignFirstResponder()
         return true
     }
     
+    
+    // MARK:
+    // MARK: private methods
+    
+    //check if textFieldSummary is ready to create an event
+    private func isTextFieldSummaryReady () -> Bool{
+        return !textFieldSummary.text!.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+    
+    //check if textViewDescription is ready to create an event
+    private func isTextViewDescriptionReady() -> Bool{
+        return !textViewDescription.text!.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+    
+    //check if hoursPickerView is ready to create an event
+    private func isHoursPickerViewReady() -> Bool{
+        return hoursPickerView.selectedRow(inComponent: pickerComponents - 1) != 0
+    }
+    
+    private func addEvent(){
+        let newEvent : GTLRCalendar_Event = GTLRCalendar_Event.init()
+        
+        //details
+        newEvent.summary = textFieldSummary.text
+        newEvent.descriptionProperty = textViewDescription.text
+        
+        let duration : Double = Double(pickerData[hoursPickerView.selectedRow(inComponent: 0)])!
+        
+        
+        //dates
+        let newStartDate : Date = selectedDate
+        let newEndDate : Date = newStartDate.addingTimeInterval((60 * 60) * duration)
+        
+        let startTime : GTLRDateTime = GTLRDateTime.init(date: newStartDate)
+        let endTime : GTLRDateTime = GTLRDateTime.init(date: newEndDate)
+        
+        newEvent.start = GTLRCalendar_EventDateTime.init()
+        newEvent.end = GTLRCalendar_EventDateTime.init()
+        
+        newEvent.start?.dateTime = startTime
+        newEvent.end?.dateTime = endTime
+        
+        //query
+        let insertQuery : GTLRCalendarQuery_EventsInsert = GTLRCalendarQuery_EventsInsert.query(withObject: newEvent, calendarId: "primary")
+        
+        
+        service.executeQuery(insertQuery, completionHandler: { (ticket, person , error) -> Void in
+            if (error == nil) {
+                self.navigationController?.popToRootViewController(animated: true)
+            }else{
+                print("No se agregó")
+            }
+        })
+    }
     
     // MARK:
     // MARK: public methods
@@ -143,6 +202,18 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         initializeDatePicker()
     }
     
+    // MARK:
+    // MARK: events methods
     
+    @IBAction func createEvent(_ sender: UIButton) {
+        if isTextFieldSummaryReady() && isTextViewDescriptionReady() && isHoursPickerViewReady() && selectedDate != nil{
+            addEvent()
+        }else{
+            let alertController = UIAlertController(title: "Error", message: "Please complete the form", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "OK", style: .cancel) { action in}
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true) {}
+        }
+    }
     
 }

@@ -54,7 +54,7 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().scopes = scopes
-        GIDSignIn.sharedInstance().signInSilently()
+
     }
     
     
@@ -67,6 +67,12 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
         
         initialize()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        GIDSignIn.sharedInstance().signInSilently()
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -96,7 +102,7 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
     // MARK:
     // MARK: public methods
     
-    func displayResultWithTicket(
+    func resultWithTicket(
         ticket: GTLRServiceTicket,
         finishedWithObject response : GTLRCalendar_Events,
         error : NSError?) {
@@ -121,6 +127,6 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
         service.executeQuery(
             query,
             delegate: self,
-            didFinish: #selector(displayResultWithTicket(ticket:finishedWithObject:error:)))
+            didFinish: #selector(resultWithTicket(ticket:finishedWithObject:error:)))
     }
 }

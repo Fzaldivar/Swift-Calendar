@@ -69,48 +69,13 @@ class EventsTableViewController: UITableViewController {
         return cell
     }
     
-    // MARK:
-    // MARK: private methods
-    
-    private func addEvent(){
-        let myEvent : GTLRCalendar_Event = GTLRCalendar_Event.init()
-        
-        //details
-        myEvent.summary = "Mi nuevo evento desde el app"
-        myEvent.descriptionProperty = "Creando un nuevo evento desde mi app en Swift"
-        
-        //dates
-        let myStartDate : Date = Date.init()
-        let myEndDate : Date = myStartDate.addingTimeInterval((60 * 60))
-        
-        let startTime : GTLRDateTime = GTLRDateTime.init(date: myStartDate)
-        let endTime : GTLRDateTime = GTLRDateTime.init(date: myEndDate)
-        
-        myEvent.start = GTLRCalendar_EventDateTime.init()
-        myEvent.end = GTLRCalendar_EventDateTime.init()
-        
-        myEvent.start?.dateTime = startTime
-        myEvent.end?.dateTime = endTime
-        
-        //query
-        let insertQuery : GTLRCalendarQuery_EventsInsert = GTLRCalendarQuery_EventsInsert.query(withObject: myEvent, calendarId: "primary")
-        
-        
-        service.executeQuery(insertQuery, completionHandler: { (ticket, person , error) -> Void in
-            if (error == nil) {
-                print("Se agregó")
-            }else{
-                print("No se agregó")
-            }
-        })
-    }
-    
     
     // MARK:
     // MARK: public methods
     
     func addEventView(){
         let newEventViewController : NewEventViewController = storyboard?.instantiateViewController(withIdentifier: "NewEventViewController") as! NewEventViewController
+        newEventViewController.service = service
         navigationController?.pushViewController(newEventViewController, animated: true)
     }
     
