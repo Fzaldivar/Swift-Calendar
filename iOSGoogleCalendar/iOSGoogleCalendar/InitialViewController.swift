@@ -26,8 +26,9 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
     // MARK: properties
     
     var service : GTLRCalendarService!
+    var calendarUser : CalendarUser!
     let signInButton = GIDSignInButton()
-    private let scopes = ["https://www.googleapis.com/auth/calendar"]
+    private let scopes = ["https://www.googleapis.com/auth/userinfo.email","https://www.googleapis.com/auth/calendar"]
     
     
     // MARK:
@@ -41,8 +42,8 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
         let size = CGSize(width: width, height: width)
         startAnimating(size, message: loadingText, type: .ballScaleRipple)
         
-        //service
         
+        //service
         service = GTLRCalendarService.init()
         service.authorizer = GTMOAuth2ViewControllerTouch.authForGoogleFromKeychain(forName: kGoogleAPIKeychainItemName, clientID: kGoogleAPIClientID, clientSecret: nil)
         
@@ -54,6 +55,9 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().scopes = scopes
+        
+        //properties
+        calendarUser = CalendarUser.shared
 
     }
     
@@ -91,6 +95,7 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
         } else {
             self.signInButton.isHidden = true
             self.service.authorizer = user.authentication.fetcherAuthorizer()
+            calendarUser.userEmail = user.profile.email
             fetchEvents()
         }
         
