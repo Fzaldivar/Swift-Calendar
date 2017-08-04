@@ -20,7 +20,7 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
     
     let kGoogleAPIKeychainItemName = "Google Calendar API";
     let kGoogleAPIClientID = "307980938621-11gdeu8334c6umga443iic3bgq58u2cb.apps.googleusercontent.com";
-    let loadingText : String = "Loading..."
+
     
     // MARK:
     // MARK: properties
@@ -40,7 +40,7 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
         
         let width = view.frame.size.width / 3
         let size = CGSize(width: width, height: width)
-        startAnimating(size, message: loadingText, type: .ballScaleRipple)
+        startAnimating(size, message: Constants.kLoadingTextLogin, type: .ballScaleRipple)
         
         
         //service
@@ -121,7 +121,6 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
     
     // MARK:
     // MARK: private methods
-    
     
     private func fetchEvents() {
         let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")

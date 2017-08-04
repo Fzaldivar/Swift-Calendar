@@ -9,9 +9,10 @@
 import GoogleAPIClientForREST
 import UIKit
 import GTMOAuth2
+import NVActivityIndicatorView
 
 
-class EventsTableViewController: UITableViewController {
+class EventsTableViewController: UITableViewController,NVActivityIndicatorViewable,GoogleCalendarProtocol {
     
     // MARK:
     // MARK: constants
@@ -25,6 +26,7 @@ class EventsTableViewController: UITableViewController {
     var service : GTLRCalendarService!
     var addEventButton : UIBarButtonItem!
     var calendarUserEmail : String!
+    var googleCalendar : GoogleCalendar!
     
     // MARK:
     // MARK: initialize methods
@@ -32,9 +34,11 @@ class EventsTableViewController: UITableViewController {
     private func initialize(){
         addEventButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(addEventView))
         navigationItem.rightBarButtonItem = addEventButton
-        navigationItem.setHidesBackButton(true, animated:true);
+        //navigationItem.setHidesBackButton(true, animated:true);
         title = titleEvents
         calendarUserEmail = CalendarUser.shared.userEmail
+        googleCalendar = GoogleCalendar.shared
+        googleCalendar.delegate = self
     }
     
     // MARK:
@@ -72,6 +76,7 @@ class EventsTableViewController: UITableViewController {
         
         let attendee = getGTLCalendar_EventAttendee(event: event)
         cell.backgroundColor = colorOfCell(attendee: attendee)
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -84,24 +89,27 @@ class EventsTableViewController: UITableViewController {
         let event : GTLRCalendar_Event = (events.items?[indexPath.row])!
         
         if event.attendees != nil && event.attendees?.count != 0 {
-            event.attendees?[0].responseStatus = "accepted"
             
-            
-            let updateQuery : GTLRCalendarQuery_EventsUpdate = GTLRCalendarQuery_EventsUpdate.query(withObject: event, calendarId: "primary", eventId: event.identifier!)
-            
-            service.executeQuery(updateQuery, completionHandler: { (ticket, person , error) -> Void in
-                if (error == nil) {
-                    self.navigationController?.popToRootViewController(animated: true)
-                }else{
-                    print("No se actualizó")
-                }
-            })
-            print("has attendees")
+            let attendee = getGTLCalendar_EventAttendee(event: event)
+            changeStatusAttendeeAlert(event: event, attendee: attendee!)
         }
         
         
     }
     
+    
+    //MARK: GoogleCalendarProtocol
+    
+    func readEvents(events : GTLRCalendar_Events?){
+        self.events = events
+        UIView.transition(with: tableView,
+                          duration: 1.0,
+                          options: .transitionCrossDissolve,
+                          animations: {
+                            self.tableView.reloadData()
+        })
+        stopAnimating()
+    }
     
     // MARK:
     // MARK: private methods
@@ -117,7 +125,6 @@ class EventsTableViewController: UITableViewController {
                     return attendee
                 }
             }
-            
         }
         
         return nil
@@ -129,7 +136,7 @@ class EventsTableViewController: UITableViewController {
         
         guard let attendeeStatus = attendee?.responseStatus
             else{
-                return UIColor.white
+                return UIColor.green
         }
         
         switch attendeeStatus {
@@ -142,14 +149,122 @@ class EventsTableViewController: UITableViewController {
         case Constants.kEventStatusDeclined:
             return UIColor.red
         default :
-            return UIColor.white
+            return UIColor.green
             
         }
         
     }
     
     
+    //change status alert view
     
+    private func changeStatusAttendeeAlert(event : GTLRCalendar_Event, attendee : GTLRCalendar_EventAttendee){
+        
+        let alertController = UIAlertController(title: event.summary, message: String(format:"Current status %@",getStatusFromAttendee(attendee: attendee)), preferredStyle: .alert)
+        setAlertActions(event: event, attendee: attendee, alertController: alertController)
+        present(alertController, animated: true) {}
+    }
+    
+    
+    //get status from event for Alert title
+    
+    private func getStatusFromAttendee(attendee : GTLRCalendar_EventAttendee) -> String{
+        
+        guard let status = attendee.responseStatus else {
+            return Constants.kEventsNoStatus
+        }
+        
+        switch status {
+        case Constants.kEventStatusAccepted:
+            return Constants.kEventStatusAcceptedTitle
+        case Constants.kEventStatusTentative:
+            return  Constants.kEventStatusTentativeTitle
+        case Constants.kEventStatusNeedsAction:
+            return Constants.kEventStatusNeedsActionTitle
+        case Constants.kEventStatusDeclined:
+            return Constants.kEventStatusDeclinedTitle
+        default :
+            return Constants.kEventsNoStatus
+        }
+        
+    }
+    
+    
+    //get all the actions for an attendee
+    
+    private func setAlertActions(event: GTLRCalendar_Event, attendee : GTLRCalendar_EventAttendee, alertController : UIAlertController) {
+        
+        
+        //create actions
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in}
+        let acceptedAction =  UIAlertAction(title: Constants.kEventStatusAcceptedTitle, style: .default) { action in
+            self.updateEventByAttendee(event: event, attendee: attendee, title: Constants.kEventStatusAccepted)
+        }
+        let declinedAction =  UIAlertAction(title: Constants.kEventStatusDeclinedTitle, style: .default) { action in
+            self.updateEventByAttendee(event: event,attendee: attendee, title: Constants.kEventStatusDeclined)
+        }
+        
+        let tentativeAction =  UIAlertAction(title: Constants.kEventStatusTentativeTitle, style: .default) { action in
+            self.updateEventByAttendee(event: event,attendee: attendee, title: Constants.kEventStatusTentative)
+        }
+        
+        alertController.addAction(cancelAction)
+        
+        guard let status = attendee.responseStatus else {
+            return
+        }
+        
+        //add the actions
+        switch status {
+        case Constants.kEventStatusAccepted:
+            alertController.addAction(declinedAction)
+            alertController.addAction(tentativeAction)
+            break
+        case Constants.kEventStatusTentative:
+            alertController.addAction(declinedAction)
+            alertController.addAction(acceptedAction)
+            break
+        case Constants.kEventStatusNeedsAction:
+            alertController.addAction(declinedAction)
+            alertController.addAction(acceptedAction)
+            alertController.addAction(tentativeAction)
+            break
+        case Constants.kEventStatusDeclined:
+            alertController.addAction(acceptedAction)
+            alertController.addAction(tentativeAction)
+            break
+        default:
+            break
+        }
+    }
+    
+    //change status attendee
+    private func updateEventByAttendee(event : GTLRCalendar_Event, attendee : GTLRCalendar_EventAttendee, title : String){
+        
+        let width = self.view.frame.size.width / 3
+        let size = CGSize(width: width, height: width)
+        startAnimating(size, message: Constants.kLoadingTextChangeStatus, type: .ballScaleRipple)
+        
+        //change status
+        attendee.responseStatus = title
+        
+        //update query
+        let updateQuery : GTLRCalendarQuery_EventsUpdate = GTLRCalendarQuery_EventsUpdate.query(withObject: event, calendarId: "primary", eventId: event.identifier!)
+        
+        //execute query
+        service.executeQuery(updateQuery, completionHandler: { (ticket, person , error) -> Void in
+            if (error == nil) {
+                let delayInSeconds = 2.0
+                DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+                    self.stopAnimating()
+                    self.googleCalendar.loadEvents(service: self.service)
+                }
+            }else{
+                self.stopAnimating()
+                print("NOOOOOO")
+            }
+        })
+    }
     
     // MARK:
     // MARK: public methods
