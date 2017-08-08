@@ -10,7 +10,7 @@ import UIKit
 import DateTimePicker
 import GoogleAPIClientForREST
 
-class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate, UITextFieldDelegate {
+class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate, UITextFieldDelegate,GoogleCalendarProtocol {
 
     // MARK:
     // MARK: constants
@@ -32,7 +32,7 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var calendarButton : UIBarButtonItem!
     var pickerDate :DateTimePicker!
     var selectedDate : Date!
-    var service : GTLRCalendarService!
+    var googleCalendar : GoogleCalendar!
     
     
     // MARK:
@@ -48,10 +48,12 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         calendarButton = UIBarButtonItem(image: UIImage.init(named: "calendar"), style: .plain, target: self, action: #selector(showDatePicker))
         navigationItem.rightBarButtonItem = calendarButton
         
+        //properties
         selectedDate = nil
         dateLabel.text = "Choose a date"
         initializeDatePicker()
-        
+        googleCalendar = GoogleCalendar.shared
+        googleCalendar.delegate = self
 
     }
     
@@ -140,6 +142,14 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return true
     }
     
+    //MARK: GoogleCalendarProtocol
+    func createEvent(success: Bool) {
+        if success{
+            navigationController?.popToRootViewController(animated: true)
+        }else{
+            print("No se agregó")
+        }
+    }
     
     // MARK:
     // MARK: private methods
@@ -181,18 +191,7 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         newEvent.start?.dateTime = startTime
         newEvent.end?.dateTime = endTime
-        
-        //query
-        let insertQuery : GTLRCalendarQuery_EventsInsert = GTLRCalendarQuery_EventsInsert.query(withObject: newEvent, calendarId: "primary")
-        
-        
-        service.executeQuery(insertQuery, completionHandler: { (ticket, person , error) -> Void in
-            if (error == nil) {
-                self.navigationController?.popToRootViewController(animated: true)
-            }else{
-                print("No se agregó")
-            }
-        })
+        googleCalendar.createEvent(event: newEvent)
     }
     
     // MARK:

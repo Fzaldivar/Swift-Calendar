@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iOSGoogleCalendar/EventsTableViewController.swift"
-            timestampString = "523514860.713105"
+            filePath = "iOSGoogleCalendar/DetailViewController.swift"
+            timestampString = "523916271.624654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "readEvents(events:)"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "getAlertDeleteEvent()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,13 +26,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSGoogleCalendar/EventsTableViewController.swift"
-            timestampString = "523555528.604778"
+            timestampString = "523919789.724495"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
-            landmarkName = "updateEventByAttendee(event:attendee:title:)"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iOSGoogleCalendar.EventsTableViewController.tableView (__ObjC.UITableView, didSelectRowAt : Foundation.IndexPath) -&gt; ()"
+                  moduleName = "iOSGoogleCalendar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/f.zaldivar.coto/Desktop/Calendar/Swift-Calendar/iOSGoogleCalendar/iOSGoogleCalendar/EventsTableViewController.swift"
+                  timestampString = "523920272.929297"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "30">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "iOSGoogleCalendar.EventsTableViewController.tableView (__ObjC.UITableView, didSelectRowAt : Foundation.IndexPath) -&gt; ()"
+                  moduleName = "iOSGoogleCalendar"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/f.zaldivar.coto/Desktop/Calendar/Swift-Calendar/iOSGoogleCalendar/iOSGoogleCalendar/EventsTableViewController.swift"
+                  timestampString = "523920272.932061"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "1085">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -453,6 +453,7 @@ import UIKit
     }
     
     public func dismissView(sender: UIButton?=nil) {
+        
         UIView.animate(withDuration: 0.3, animations: {
             // animate to show contentView
             self.contentView.frame = CGRect(x: 0,

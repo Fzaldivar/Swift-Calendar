@@ -13,7 +13,7 @@ import GTMOAuth2
 import NVActivityIndicatorView
 
 
-class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDelegate, NVActivityIndicatorViewable{
+class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDelegate, NVActivityIndicatorViewable,GoogleCalendarProtocol{
     
     // MARK:
     // MARK: constants
@@ -25,8 +25,9 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
     // MARK:
     // MARK: properties
     
-    var service : GTLRCalendarService!
+    //var service : GTLRCalendarService!
     var calendarUser : CalendarUser!
+    var googleCalendar : GoogleCalendar!
     let signInButton = GIDSignInButton()
     private let scopes = ["https://www.googleapis.com/auth/userinfo.email","https://www.googleapis.com/auth/calendar"]
     
@@ -44,8 +45,8 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
         
         
         //service
-        service = GTLRCalendarService.init()
-        service.authorizer = GTMOAuth2ViewControllerTouch.authForGoogleFromKeychain(forName: kGoogleAPIKeychainItemName, clientID: kGoogleAPIClientID, clientSecret: nil)
+        googleCalendar = GoogleCalendar.shared
+        googleCalendar.service.authorizer = GTMOAuth2ViewControllerTouch.authForGoogleFromKeychain(forName: kGoogleAPIKeychainItemName, clientID: kGoogleAPIClientID, clientSecret: nil)
         
         signInButton.center = view.center
         signInButton.isHidden = true
@@ -58,6 +59,7 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
         
         //properties
         calendarUser = CalendarUser.shared
+        googleCalendar.delegate = self
 
     }
     
@@ -75,8 +77,10 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         GIDSignIn.sharedInstance().signInSilently()
+        googleCalendar.delegate = self
     }
 
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -88,49 +92,34 @@ class InitialViewController: UIViewController , GIDSignInDelegate, GIDSignInUIDe
     // MARK:
     // MARK: delegate methods
     
+    //MARK: sign in google
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if error != nil {
             self.signInButton.isHidden = false
-            self.service.authorizer = nil
+            self.googleCalendar.service.authorizer = nil
+            stopAnimating()
         } else {
             self.signInButton.isHidden = true
-            self.service.authorizer = user.authentication.fetcherAuthorizer()
+            self.googleCalendar.service.authorizer = user.authentication.fetcherAuthorizer()
             calendarUser.userEmail = user.profile.email
-            fetchEvents()
+            goToEventsTableViewController()
         }
         
-        //stop spinner
-        stopAnimating()
-    }
-    
-    
-    // MARK:
-    // MARK: public methods
-    
-    func resultWithTicket(
-        ticket: GTLRServiceTicket,
-        finishedWithObject response : GTLRCalendar_Events,
-        error : NSError?) {
-        
-        let eventsTableViewController : EventsTableViewController = storyboard?.instantiateViewController(withIdentifier: "EventsTableViewController") as! EventsTableViewController
-        eventsTableViewController.events = response
-        eventsTableViewController.service = service
-        navigationController?.pushViewController(eventsTableViewController, animated: true)
         
     }
+    
+
     
     // MARK:
     // MARK: private methods
     
-    private func fetchEvents() {
-        let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
-        query.maxResults = 10
-        query.timeMin = GTLRDateTime(date: Date())
-        query.singleEvents = true
-        query.orderBy = kGTLRCalendarOrderByStartTime
-        service.executeQuery(
-            query,
-            delegate: self,
-            didFinish: #selector(resultWithTicket(ticket:finishedWithObject:error:)))
+    private func goToEventsTableViewController() {
+        //stop spinner
+        stopAnimating()
+        
+        let eventsTableViewController : EventsTableViewController = storyboard?.instantiateViewController(withIdentifier: "EventsTableViewController") as! EventsTableViewController
+        eventsTableViewController.events = GTLRCalendar_Events.init()
+        navigationController?.pushViewController(eventsTableViewController, animated: true)
     }
 }
