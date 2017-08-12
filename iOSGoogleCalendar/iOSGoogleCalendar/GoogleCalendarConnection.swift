@@ -72,6 +72,7 @@ class GoogleCalendar: NSObject {
     func updateEventWithAttendee(event : GTLRCalendar_Event!){
         //update query
         let updateQuery : GTLRCalendarQuery_EventsUpdate = GTLRCalendarQuery_EventsUpdate.query(withObject: event, calendarId: "primary", eventId: event.identifier!)
+        updateQuery.sendNotifications = true
         
         //execute query
         service.executeQuery(updateQuery, completionHandler: { (ticket, person , error) -> Void in
