@@ -10,7 +10,7 @@ import UIKit
 import DateTimePicker
 import GoogleAPIClientForREST
 
-class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate, UITextFieldDelegate,GoogleCalendarProtocol {
+class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate, UITextFieldDelegate,LocalCalendarProtocol {
 
     // MARK:
     // MARK: constants
@@ -32,7 +32,7 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var calendarButton : UIBarButtonItem!
     var pickerDate :DateTimePicker!
     var selectedDate : Date!
-    var googleCalendar : GoogleCalendar!
+    var localCalendar : LocalCalendar!
     
     
     // MARK:
@@ -52,8 +52,8 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         selectedDate = nil
         dateLabel.text = "Choose a date"
         initializeDatePicker()
-        googleCalendar = GoogleCalendar.shared
-        googleCalendar.delegate = self
+        localCalendar = LocalCalendar.shared
+        localCalendar.delegate = self
 
     }
     
@@ -142,7 +142,7 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return true
     }
     
-    //MARK: GoogleCalendarProtocol
+    //MARK: LocalCalendarProtocol
     func createEvent(success: Bool) {
         if success{
             navigationController?.popToRootViewController(animated: true)
@@ -191,7 +191,7 @@ class NewEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         newEvent.start?.dateTime = startTime
         newEvent.end?.dateTime = endTime
-        googleCalendar.createEvent(event: newEvent)
+        localCalendar.addingNewEvent(event: newEvent)
     }
     
     // MARK:

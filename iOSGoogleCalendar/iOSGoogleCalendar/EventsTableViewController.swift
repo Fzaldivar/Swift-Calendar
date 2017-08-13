@@ -12,7 +12,7 @@ import GTMOAuth2
 import NVActivityIndicatorView
 
 
-class EventsTableViewController: UITableViewController,NVActivityIndicatorViewable,GoogleCalendarProtocol {
+class EventsTableViewController: UITableViewController,NVActivityIndicatorViewable,LocalCalendarProtocol {
     
     // MARK:
     // MARK: constants
@@ -25,7 +25,7 @@ class EventsTableViewController: UITableViewController,NVActivityIndicatorViewab
     var events : GTLRCalendar_Events!
     var addEventButton : UIBarButtonItem!
     var calendarUserEmail : String!
-    var googleCalendar : GoogleCalendar!
+    var localCalendar : LocalCalendar!
     
     // MARK:
     // MARK: initialize methods
@@ -36,7 +36,7 @@ class EventsTableViewController: UITableViewController,NVActivityIndicatorViewab
         navigationItem.setHidesBackButton(true, animated:true);
         title = titleEvents
         calendarUserEmail = CalendarUser.shared.userEmail
-        googleCalendar = GoogleCalendar.shared
+        localCalendar = LocalCalendar.shared
        
     }
     
@@ -51,8 +51,8 @@ class EventsTableViewController: UITableViewController,NVActivityIndicatorViewab
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        googleCalendar.delegate = self
-        googleCalendar.loadEvents()
+        localCalendar.delegate = self
+        localCalendar.loadEvents()
     }
     
     override func didReceiveMemoryWarning() {
@@ -104,7 +104,7 @@ class EventsTableViewController: UITableViewController,NVActivityIndicatorViewab
     }
     
     
-    //MARK: GoogleCalendarProtocol
+    //MARK: LocalCalendarProtocol
     
     func readEvents(events : GTLRCalendar_Events?){
         self.events = events

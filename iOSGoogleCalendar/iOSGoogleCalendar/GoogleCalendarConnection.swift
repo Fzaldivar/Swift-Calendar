@@ -8,12 +8,13 @@
 
 import UIKit
 import GoogleAPIClientForREST
+import EventKit
 
 
 @objc protocol GoogleCalendarProtocol : class {
-    @objc optional func readEvents(events : GTLRCalendar_Events?)
-    @objc optional func createEvent(success : Bool)
-    @objc optional func updateEventWithAttendee(success : Bool)
+    @objc optional func finishingLoadEventsFromGoogle(events : GTLRCalendar_Events?)
+    @objc optional func finishingAddingNewEventFromGoogle(success : Bool)
+    @objc optional func finishingUpdateEventWithAttendeeFromGoogle(success : Bool)
 }
 
 class GoogleCalendar: NSObject {
@@ -39,7 +40,7 @@ class GoogleCalendar: NSObject {
     // MARK: public methods
     
     //load events
-    func loadEvents(){
+    func loadEventsFromGoogle(){
         
         let query = GTLRCalendarQuery_EventsList.query(withCalendarId: "primary")
         query.maxResults = 10
@@ -49,27 +50,27 @@ class GoogleCalendar: NSObject {
         
         service.executeQuery(query, completionHandler: { (ticket, response , error) -> Void in
             let events : GTLRCalendar_Events = response as! GTLRCalendar_Events
-            self.delegate?.readEvents!(events: events)
+            self.delegate?.finishingLoadEventsFromGoogle!(events: events)
         })
     }
     
     //create event
-    func createEvent(event : GTLRCalendar_Event!){
+    func createEventInGoogleCalendar(event : GTLRCalendar_Event!){
         //query
         let insertQuery : GTLRCalendarQuery_EventsInsert = GTLRCalendarQuery_EventsInsert.query(withObject: event, calendarId: "primary")
         
         
         service.executeQuery(insertQuery, completionHandler: { (ticket, person , error) -> Void in
             if (error == nil) {
-                self.delegate?.createEvent!(success: true)
+                self.delegate?.finishingAddingNewEventFromGoogle!(success: true)
             }else{
-                self.delegate?.createEvent!(success: false)
+                self.delegate?.finishingAddingNewEventFromGoogle!(success: false)
             }
         })
     }
     
     //update event with attendee
-    func updateEventWithAttendee(event : GTLRCalendar_Event!){
+    func updateEventWithAttendeeInGoogleCalendar(event : GTLRCalendar_Event!){
         //update query
         let updateQuery : GTLRCalendarQuery_EventsUpdate = GTLRCalendarQuery_EventsUpdate.query(withObject: event, calendarId: "primary", eventId: event.identifier!)
         updateQuery.sendNotifications = true
@@ -79,10 +80,10 @@ class GoogleCalendar: NSObject {
             if (error == nil) {
                 let delayInSeconds = 2.0
                 DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
-                    self.delegate?.updateEventWithAttendee!(success: true)
+                    self.delegate?.finishingUpdateEventWithAttendeeFromGoogle!(success: true)
                 }
             }else{
-                self.delegate?.updateEventWithAttendee!(success: false)
+                self.delegate?.finishingUpdateEventWithAttendeeFromGoogle!(success: false)
             }
         })
     }

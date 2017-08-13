@@ -10,14 +10,14 @@ import UIKit
 import GoogleAPIClientForREST
 import NVActivityIndicatorView
 
-class DetailViewController: UIViewController, GoogleCalendarProtocol, NVActivityIndicatorViewable {
+class DetailViewController: UIViewController, LocalCalendarProtocol, NVActivityIndicatorViewable {
     
     
     //MARK:
     //MARK: properties
     var mainEvent : GTLRCalendar_Event!
     var attendee : GTLRCalendar_EventAttendee!
-    var googleCalendar : GoogleCalendar!
+    var localCalendar : LocalCalendar!
     
     @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var endDateLabel: UILabel!
@@ -34,8 +34,8 @@ class DetailViewController: UIViewController, GoogleCalendarProtocol, NVActivity
         title = mainEvent.summary
         calendarUserEmail = CalendarUser.shared.userEmail
         attendee = getGTLCalendar_EventAttendee()
-        googleCalendar = GoogleCalendar.shared
-        googleCalendar.delegate = self
+        localCalendar = LocalCalendar.shared
+        localCalendar.delegate = self
         
         startDateLabel.text = getTextForDate(date: mainEvent.start?.dateTime?.date)
         endDateLabel.text = getTextForDate(date: mainEvent.end?.dateTime?.date)
@@ -267,7 +267,7 @@ class DetailViewController: UIViewController, GoogleCalendarProtocol, NVActivity
         }else{
             mainEvent.status = newStatus
         }
-        googleCalendar.updateEventWithAttendee(event: mainEvent)
+        localCalendar.updateEventWithAttendee(event: mainEvent)
     }
     
     
