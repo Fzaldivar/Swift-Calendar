@@ -41,4 +41,11 @@ struct Constants{
     static let kEventUpdateButtonWithoutAttendee : String = "Delete"
     static let kEventUpdateSuccess : String = "The event has changed."
     static let kEventUpdateError : String = "There was an error during the transaction."
+    
+    //Google Calendar Notification Factory
+    static let kEventNotificationBody = "This needs an answer"
+    static let kEventNotificationDeclineIdentifier = "declined"
+    static let kEventNotificationDecline = "Decline"
+    static let kEventNotificationAcceptIdentifier = "accepted"
+    static let kEventNotificationAccept = "Accept"
 }

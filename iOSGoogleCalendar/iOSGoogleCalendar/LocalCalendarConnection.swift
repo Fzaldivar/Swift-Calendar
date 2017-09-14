@@ -12,6 +12,7 @@ import EventKit
 
 @objc protocol LocalCalendarProtocol : class {
     @objc optional func readEvents(events : GTLRCalendar_Events?)
+    @objc optional func readEventsWithEvent(events : GTLRCalendar_Events?, event : GTLRCalendar_Event!)
     @objc optional func createEvent(success : Bool)
     @objc optional func updateEventWithAttendee(success : Bool)
 }
@@ -38,6 +39,10 @@ class LocalCalendar: NSObject, GoogleCalendarProtocol {
     // MARK:
     // MARK: public methods
     
+    func startLoadingEvents(){
+        googleCalendar.delegate = self
+        googleCalendar.loadEventsFromGoogle()
+    }
     
     //adding new event
     func addingNewEvent(event : GTLRCalendar_Event!){
@@ -82,6 +87,12 @@ class LocalCalendar: NSObject, GoogleCalendarProtocol {
         self.googleCalendar.loadEventsFromGoogle()
     }
     
+    //load events with event
+    func loadEvents(event : GTLRCalendar_Event){
+        googleCalendar.delegate  = self
+        self.googleCalendar.loadEventsFromGoogleWithEvent(event : event)
+    }
+    
     
     // MARK:
     // MARK: delegate methods
@@ -99,5 +110,11 @@ class LocalCalendar: NSObject, GoogleCalendarProtocol {
     //finishing load events
     func finishingLoadEventsFromGoogle(events : GTLRCalendar_Events?){
         delegate?.readEvents!(events: events)
+    }
+    
+    
+    //finish loading event with events
+    func finishingLoadEventsFromGoogleWithEvent(events: GTLRCalendar_Events?, event: GTLRCalendar_Event) {
+        delegate?.readEventsWithEvent!(events: events, event: event)
     }
 }

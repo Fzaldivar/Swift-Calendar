@@ -25,77 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iOSGoogleCalendar/LocalCalendarConnection.swift"
-            timestampString = "524292473.748549"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "addingNewEvent(event:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iOSGoogleCalendar/LocalCalendarConnection.swift"
-            timestampString = "524296001.065154"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "finishingAddingNewEventFromGoogle(success:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iOSGoogleCalendar/LocalCalendarConnection.swift"
-            timestampString = "524292581.524482"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "addingNewEvent(event:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iOSGoogleCalendar/DetailViewController.swift"
-            timestampString = "524294929.766493"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
-            landmarkName = "updateEvent(newStatus:hasAttendee:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iOSGoogleCalendar/LocalCalendarConnection.swift"
-            timestampString = "524295076.709088"
+            filePath = "iOSGoogleCalendar/GoogleCalendarNotificationDelegate.swift"
+            timestampString = "526495913.304115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "70"
             endingLineNumber = "70"
-            landmarkName = "updateEventWithAttendee(event:)"
+            landmarkName = "finishingUpdateEventWithAttendeeFromGoogle(success:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,44 +41,44 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iOSGoogleCalendar/GoogleCalendarConnection.swift"
-            timestampString = "524295131.597851"
+            filePath = "iOSGoogleCalendar/GoogleCalendarNotificationDelegate.swift"
+            timestampString = "526496258.449156"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "updateEventWithAttendeeInGoogleCalendar(event:)"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "finishingLoadSingleEvent(event:newStatus:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "iOSGoogleCalendar.GoogleCalendar.updateEventWithAttendeeInGoogleCalendar (event : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.GTLRCalendar_Event&gt;) -&gt; ()"
+                  symbolName = "iOSGoogleCalendar.GoogleCalendarNotificationDelegate.finishingLoadSingleEvent (event : Swift.Optional&lt;__ObjC.GTLRCalendar_Event&gt;, newStatus : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;) -&gt; ()"
                   moduleName = "iOSGoogleCalendar"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/f.zaldivar.coto/Desktop/Calendar/Swift-Calendar/iOSGoogleCalendar/iOSGoogleCalendar/GoogleCalendarConnection.swift"
-                  timestampString = "524296142.945735"
+                  urlString = "file:///Users/f.zaldivar.coto/Desktop/Calendar/Swift-Calendar/iOSGoogleCalendar/iOSGoogleCalendar/GoogleCalendarNotificationDelegate.swift"
+                  timestampString = "527018139.163678"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "79"
-                  endingLineNumber = "79"
-                  offsetFromSymbolStart = "724">
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "168">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "iOSGoogleCalendar.GoogleCalendar.(updateEventWithAttendeeInGoogleCalendar (event : Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.GTLRCalendar_Event&gt;) -&gt; ()).(closure #1)"
+                  symbolName = "iOSGoogleCalendar.GoogleCalendarNotificationDelegate.finishingLoadSingleEvent (event : Swift.Optional&lt;__ObjC.GTLRCalendar_Event&gt;, newStatus : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;) -&gt; ()"
                   moduleName = "iOSGoogleCalendar"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/f.zaldivar.coto/Desktop/Calendar/Swift-Calendar/iOSGoogleCalendar/iOSGoogleCalendar/GoogleCalendarConnection.swift"
-                  timestampString = "524296142.947109"
+                  urlString = "file:///Users/f.zaldivar.coto/Desktop/Calendar/Swift-Calendar/iOSGoogleCalendar/iOSGoogleCalendar/GoogleCalendarNotificationDelegate.swift"
+                  timestampString = "527018139.165017"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "80"
-                  endingLineNumber = "80"
-                  offsetFromSymbolStart = "32">
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "220">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -153,13 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iOSGoogleCalendar/GoogleCalendarConnection.swift"
-            timestampString = "524295187.944813"
+            filePath = "iOSGoogleCalendar/GoogleCalendarNotificationDelegate.swift"
+            timestampString = "526507849.063938"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "updateEventWithAttendeeInGoogleCalendar(event:)"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "userNotificationCenter(_:didReceive:withCompletionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -169,13 +105,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iOSGoogleCalendar/LocalCalendarConnection.swift"
-            timestampString = "524295938.116218"
+            filePath = "iOSGoogleCalendar/GoogleCalendarNotificationFactory.swift"
+            timestampString = "527017452.282475"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "finishingLoadEventsFromGoogle(events:)"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "createCategories(events:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iOSGoogleCalendar/EventsTableViewController.swift"
+            timestampString = "526942283.081057"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

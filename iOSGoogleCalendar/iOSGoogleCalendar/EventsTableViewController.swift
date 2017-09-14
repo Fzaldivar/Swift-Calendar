@@ -10,6 +10,7 @@ import GoogleAPIClientForREST
 import UIKit
 import GTMOAuth2
 import NVActivityIndicatorView
+import UserNotifications
 
 
 class EventsTableViewController: UITableViewController,NVActivityIndicatorViewable,LocalCalendarProtocol {
@@ -18,12 +19,15 @@ class EventsTableViewController: UITableViewController,NVActivityIndicatorViewab
     // MARK: constants
     let eventsSections : Int = 1
     let titleEvents : String = "Events"
+    let center = UNUserNotificationCenter.current()
+    let notificationDelegate = GoogleCalendarNotificationDelegate()
     
     
     // MARK:
     // MARK: properties
     var events : GTLRCalendar_Events!
     var addEventButton : UIBarButtonItem!
+    var sendNotification : UIBarButtonItem!
     var calendarUserEmail : String!
     var localCalendar : LocalCalendar!
     
@@ -32,12 +36,15 @@ class EventsTableViewController: UITableViewController,NVActivityIndicatorViewab
     
     private func initialize(){
         addEventButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(addEventView))
+        sendNotification = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: #selector(sendInvite))
         navigationItem.rightBarButtonItem = addEventButton
+        navigationItem.leftBarButtonItem = sendNotification
         navigationItem.setHidesBackButton(true, animated:true);
         title = titleEvents
         calendarUserEmail = CalendarUser.shared.userEmail
         localCalendar = LocalCalendar.shared
-       
+        initNotificationSetupCheck()
+        center.delegate = notificationDelegate
     }
     
     // MARK:
@@ -117,6 +124,26 @@ class EventsTableViewController: UITableViewController,NVActivityIndicatorViewab
         stopAnimating()
     }
     
+    
+    func readEventsWithEvent(events: GTLRCalendar_Events?, event: GTLRCalendar_Event!) {
+
+        let factory = GoogleCalendarNotificationFactory(event: event)
+        let content = factory.createContent()
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3,
+                                                        repeats: false)
+        let identifier = GoogleCalendar.Notification.identifier + event.summary!
+        let category = factory.createCategories(events : events)
+        
+        content.categoryIdentifier = GoogleCalendar.Notification.categoryIdentifier
+        content.userInfo = ["eventId" : event.identifier!]
+        let request = UNNotificationRequest(identifier: identifier,
+                                            content: content, trigger: trigger)
+        
+        center.setNotificationCategories([category])
+        center.add(request, withCompletionHandler: { (error) in
+        })
+    }
+    
     // MARK:
     // MARK: private methods
     
@@ -161,15 +188,64 @@ class EventsTableViewController: UITableViewController,NVActivityIndicatorViewab
         
     }
     
+    //set notifications
+    private func initNotificationSetupCheck() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]){
+            (success, error) in
+            if success {
+                print("Permission Granted")
+            } else {
+                print("There was a problem!")
+            }
+        }
+    }
+    
+    
+    //get all the invites that need an answer
+    private func getTentativeInvites() -> [GTLRCalendar_Event]{
+        
+        var tentativeEvents :[GTLRCalendar_Event] = []
+        
+        for event in events.items!{
+            
+            let attendee = getGTLCalendar_EventAttendee(event: event)
+            if(attendee != nil && attendee?.responseStatus == Constants.kEventStatusNeedsAction) {
+                tentativeEvents.append(event)
+            }
+        }
+        
+        return tentativeEvents
+    }
+    
+    //send single invite
+    private func sendSingleInvite(event : GTLRCalendar_Event!){
+        
+        localCalendar.loadEvents(event: event)
+        
+    }
+    
     
     // MARK:
     // MARK: public methods
     
+    //go to NewEvent
     func addEventView(){
         let newEventViewController : NewEventViewController = storyboard?.instantiateViewController(withIdentifier: "NewEventViewController") as! NewEventViewController
         navigationController?.pushViewController(newEventViewController, animated: true)
     }
     
+    //send notification
+    func sendInvite(){
+        
+        let eventsWithPendingInvites = getTentativeInvites()
+        
+        print(eventsWithPendingInvites.count)
+        
+        for event in eventsWithPendingInvites{
+            sendSingleInvite(event: event)
+        }
+        
+    }
     
 }
 
